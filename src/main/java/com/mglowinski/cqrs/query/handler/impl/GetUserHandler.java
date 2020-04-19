@@ -18,7 +18,7 @@ public class GetUserHandler implements QueryHandler<GetUserResult, GetUserQuery>
     @Override
     public GetUserResult handle(GetUserQuery query) {
         return userRepository.findById(query.getId())
-                .map(user -> new GetUserResult(user.getId()))
+                .map(user -> new GetUserResult(user.getId(), user.getFirstName(), user.getLastName()))
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
