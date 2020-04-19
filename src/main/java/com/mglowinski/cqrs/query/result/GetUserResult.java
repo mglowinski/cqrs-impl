@@ -8,4 +8,6 @@ import lombok.Getter;
 public class GetUserResult {
 
     private long id;
+    private String firstName;
+    private String lastName;
 }
