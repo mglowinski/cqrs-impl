@@ -13,9 +13,9 @@ public class CommandBusImpl implements CommandBus {
     private final CommandRegistry commandRegistry;
 
     @Override
-    public <R, C extends Command> R execute(C command) {
-        CommandHandler<R, C> commandHandler = (CommandHandler<R, C>) commandRegistry.getCommandHandler(command.getClass());
-        return commandHandler.handle(command);
+    public <C extends Command> void execute(C command) {
+        CommandHandler<C> commandHandler = (CommandHandler<C>) commandRegistry.getCommandHandler(command.getClass());
+        commandHandler.handle(command);
     }
 
 }

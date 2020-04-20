@@ -11,21 +11,21 @@ import java.util.Set;
 @Component
 public class CommandRegistry {
 
-    private Map<Class<? extends Command>, CommandHandler<?, ?>> commandHandlerMap = new HashMap<>();
+    private Map<Class<? extends Command>, CommandHandler<?>> commandHandlerMap = new HashMap<>();
 
-    public CommandRegistry(Set<CommandHandler<?, ?>> commandHandlers) {
+    public CommandRegistry(Set<CommandHandler<?>> commandHandlers) {
         createRegistry(commandHandlers);
     }
 
-    public CommandHandler<?, ?> getCommandHandler(Class<?> commandClass) {
+    public CommandHandler<?> getCommandHandler(Class<?> commandClass) {
         return commandHandlerMap.get(commandClass);
     }
 
-    private void createRegistry(Set<CommandHandler<?, ?>> commandHandlers) {
+    private void createRegistry(Set<CommandHandler<?>> commandHandlers) {
         commandHandlers.forEach(commandHandler -> {
             Class<?>[] generics = GenericTypeResolver.resolveTypeArguments(
                     commandHandler.getClass(), CommandHandler.class);
-            Class<? extends Command> commandClass = (Class<? extends Command>) generics[1];
+            Class<? extends Command> commandClass = (Class<? extends Command>) generics[0];
             commandHandlerMap.put(commandClass, commandHandler);
         });
     }
